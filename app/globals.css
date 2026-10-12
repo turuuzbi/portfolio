@@ -1,0 +1,71 @@
+@import "tailwindcss";
+@import "../styles/tokens.css";
+@import "../styles/effects.css";
+
+@layer base {
+  html {
+    background: var(--c-bg);
+    color: var(--c-fg);
+    scroll-padding-top: 4.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    min-height: 100dvh;
+    background: var(--c-bg);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    cursor: url("/cursor.png") 2 2, auto;
+    overflow-x: clip;
+  }
+
+  a,
+  button,
+  [role="button"],
+  label[for] {
+    cursor: url("/cursor-pointer.png") 2 2, pointer;
+  }
+
+  /* Pixel fonts look best unsmoothed and without synthetic bold */
+  h1,
+  h2,
+  h3,
+  .font-pixel {
+    -webkit-font-smoothing: none;
+    font-synthesis: none;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  :focus-visible {
+    outline: var(--bw) solid var(--accent);
+    outline-offset: 3px;
+    box-shadow: 0 0 18px 0 color-mix(in srgb, var(--accent) 55%, transparent);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    text-wrap: balance;
+  }
+}
+
+@utility container-page {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}

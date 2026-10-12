@@ -1,0 +1,259 @@
+/* ---------- CRT overlay: scanlines + grain + vignette ---------- */
+
+.crt {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.crt::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0 2px,
+      rgb(0 0 0 / var(--scanline-opacity)) 2px 3px
+    ),
+    radial-gradient(ellipse at center, transparent 55%, rgb(0 0 0 / 0.45) 100%);
+}
+
+.crt::after {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 0.8s steps(4) infinite;
+  will-change: transform;
+}
+
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-6%, 4%); }
+  50% { transform: translate(5%, -7%); }
+  75% { transform: translate(-3%, -4%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* ---------- Glitch / chromatic aberration ---------- */
+
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch__layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: screen;
+}
+
+.glitch__layer--a { color: var(--c-pink); }
+.glitch__layer--b { color: var(--c-cyan); }
+
+.glitch:hover .glitch__layer,
+:focus-visible > .glitch .glitch__layer,
+.glitch--always .glitch__layer {
+  opacity: 0.85;
+}
+
+.glitch:hover .glitch__layer--a,
+:focus-visible > .glitch .glitch__layer--a {
+  animation: glitch-a 0.9s steps(1) infinite;
+}
+.glitch:hover .glitch__layer--b,
+:focus-visible > .glitch .glitch__layer--b {
+  animation: glitch-b 0.9s steps(1) infinite;
+}
+
+.glitch--always .glitch__layer--a { transform: translate(-0.04em, 0); }
+.glitch--always .glitch__layer--b { transform: translate(0.04em, 0); }
+
+@keyframes glitch-a {
+  0% { transform: translate(-3px, 0); clip-path: inset(0 0 60% 0); }
+  20% { transform: translate(3px, -1px); clip-path: inset(40% 0 20% 0); }
+  40% { transform: translate(-2px, 1px); clip-path: inset(70% 0 0 0); }
+  60% { transform: translate(-4px, 0); clip-path: inset(10% 0 70% 0); }
+  80% { transform: translate(2px, 0); clip-path: inset(0); }
+}
+@keyframes glitch-b {
+  0% { transform: translate(3px, 0); clip-path: inset(50% 0 0 0); }
+  20% { transform: translate(-3px, 1px); clip-path: inset(0 0 55% 0); }
+  40% { transform: translate(2px, -1px); clip-path: inset(25% 0 45% 0); }
+  60% { transform: translate(4px, 0); clip-path: inset(80% 0 0 0); }
+  80% { transform: translate(-2px, 0); clip-path: inset(0); }
+}
+
+/* ---------- Neon glow ---------- */
+
+.neon-hover {
+  transition:
+    box-shadow var(--dur-fast) var(--ease-hard),
+    border-color var(--dur-fast) var(--ease-hard);
+}
+.neon-hover:hover,
+.neon-hover:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 22px -4px color-mix(in srgb, var(--accent) 60%, transparent);
+}
+
+.text-glow {
+  text-shadow: 0 0 12px color-mix(in srgb, var(--accent) 70%, transparent);
+}
+
+/* ---------- Neon title: ignition flicker, then steady ---------- */
+/* Max two dips, once: stays well under the WCAG 3-flashes-per-second limit. */
+
+.neon-title {
+  color: var(--accent);
+  text-shadow:
+    -0.03em 0 0 color-mix(in srgb, var(--c-cyan) 75%, transparent),
+    0.03em 0 0 color-mix(in srgb, var(--c-purple) 65%, transparent),
+    0 0 28px color-mix(in srgb, var(--accent) 55%, transparent);
+  animation: neon-on 1.4s steps(1) 0.15s both;
+}
+
+@keyframes neon-on {
+  0% { opacity: 0.35; text-shadow: none; }
+  30% { opacity: 1; }
+  38% { opacity: 0.3; text-shadow: none; }
+  52% { opacity: 1; }
+  58% { opacity: 0.55; text-shadow: none; }
+  70% { opacity: 1; }
+}
+
+/* ---------- Terminal typing (CSS only, monospace ch widths) ---------- */
+
+.type-line {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+  width: 0;
+  animation: type calc(var(--n) * 28ms) steps(var(--n), end) var(--d, 0ms) forwards;
+}
+
+@keyframes type {
+  to { width: calc(var(--n) * 1ch); }
+}
+
+.caret {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.1em;
+  vertical-align: text-bottom;
+  background: var(--accent);
+  animation: blink 1s steps(1) infinite;
+}
+
+/* Slow 1 Hz blink */
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.blink {
+  animation: blink 1.2s steps(1) infinite;
+}
+
+/* ---------- Hard-cut reveal (used after the boot sequence) ---------- */
+
+.cut-in {
+  animation: cut-in 0.35s steps(3, end) var(--d, 0ms) both;
+}
+
+@keyframes cut-in {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+
+/* ---------- Skewed divider band ---------- */
+
+.divider {
+  position: relative;
+  height: clamp(2.5rem, 6vw, 4.5rem);
+  overflow: hidden;
+}
+.divider::before {
+  content: "";
+  position: absolute;
+  inset: 35% -5%;
+  transform: skewY(calc(var(--skew) * -1));
+  background: repeating-linear-gradient(
+    90deg,
+    var(--accent) 0 28px,
+    transparent 28px 40px
+  );
+  opacity: 0.9;
+}
+.divider::after {
+  content: "";
+  position: absolute;
+  left: -5%;
+  right: -5%;
+  top: 72%;
+  height: var(--bw);
+  transform: skewY(calc(var(--skew) * -1));
+  background: var(--c-surface-3);
+}
+
+/* ---------- Synthwave floor grid (hero background) ---------- */
+
+.floor {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 28%;
+  perspective: 320px;
+  overflow: hidden;
+  pointer-events: none;
+  mask-image: linear-gradient(to top, black 10%, transparent 85%);
+}
+.floor::before {
+  content: "";
+  position: absolute;
+  left: -50%;
+  right: -50%;
+  bottom: 0;
+  height: 200%;
+  transform-origin: bottom center;
+  transform: rotateX(62deg) translateY(0);
+  will-change: transform;
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--accent) 35%, transparent) 2px, transparent 2px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--accent) 35%, transparent) 2px, transparent 2px);
+  background-size: 56px 56px;
+  animation: floor 3s linear infinite;
+}
+
+@keyframes floor {
+  to { transform: rotateX(62deg) translateY(56px); }
+}
+
+@media (min-width: 640px) {
+  .floor {
+    height: 45%;
+  }
+}
+
+/* ---------- Reduced motion: everything static, fully visible ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .crt::after,
+  .floor::before,
+  .neon-title,
+  .caret,
+  .blink,
+  .cut-in,
+  .glitch__layer {
+    animation: none !important;
+  }
+  .type-line {
+    animation: none;
+    width: auto;
+  }
+}

@@ -1,0 +1,118 @@
+/*
+ * Design tokens: retheme the whole site from this file.
+ * Tailwind utilities (bg-bg, text-muted, border-accent, font-pixel, …) are
+ * mapped onto these variables in the @theme block at the bottom.
+ */
+
+:root {
+  /* Base: near-black + grays */
+  --c-bg: #0a0a0a;
+  --c-surface-1: #141414;
+  --c-surface-2: #1f1f1f;
+  --c-surface-3: #2b2b2b;
+  --c-muted: #8a8a8a;
+  --c-fg: #e8e8e8;
+
+  /* Accents: use ONE per section via data-accent */
+  --c-pink: #ff2d95;
+  --c-cyan: #00e5ff;
+  --c-purple: #7b2cff;
+  --c-amber: #ffb000;
+
+  /* Text-safe purple (#7b2cff is only 3.4:1 on black) */
+  --c-purple-text: #a970ff;
+
+  /* Active accent (sections override) */
+  --accent: var(--c-pink);
+  --accent-text: var(--c-pink);
+  /* Text color on top of a solid accent fill */
+  --on-accent: var(--c-bg);
+
+  /* Fonts (files loaded with next/font/local in app/[lang]/layout.tsx) */
+  --font-display: var(--font-monocraft), ui-monospace, monospace;
+  --font-body: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Borders: hard edges, no radius */
+  --bw: 2px;
+  --bw-thick: 4px;
+
+  /* Layout */
+  --gutter: 1rem;
+  --container: 72rem;
+  --section-y: clamp(5rem, 12vw, 9rem);
+  --skew: 4deg;
+
+  /* Motion */
+  --dur-fast: 120ms;
+  --dur: 220ms;
+  --ease-hard: cubic-bezier(0.7, 0, 0.3, 1);
+
+  /* Effects strength */
+  --scanline-opacity: 0.14;
+  --grain-opacity: 0.05;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --gutter: 2rem;
+  }
+}
+
+/* Per-section accent */
+[data-accent="pink"] {
+  --accent: var(--c-pink);
+  --accent-text: var(--c-pink);
+  --on-accent: var(--c-bg);
+}
+[data-accent="cyan"] {
+  --accent: var(--c-cyan);
+  --accent-text: var(--c-cyan);
+  --on-accent: var(--c-bg);
+}
+[data-accent="purple"] {
+  --accent: var(--c-purple);
+  --accent-text: var(--c-purple-text);
+  --on-accent: var(--c-fg);
+}
+[data-accent="amber"] {
+  --accent: var(--c-amber);
+  --accent-text: var(--c-amber);
+  --on-accent: var(--c-bg);
+}
+
+/* Konami code: flipped palette */
+:root[data-palette="alt"] {
+  --c-pink: #00e5ff;
+  --c-cyan: #ff2d95;
+  --c-purple: #ffb000;
+  --c-purple-text: #ffb000;
+  --c-amber: #7b2cff;
+}
+:root[data-palette="alt"] [data-accent="purple"] {
+  --on-accent: var(--c-bg);
+}
+:root[data-palette="alt"] [data-accent="amber"] {
+  --accent-text: #a970ff;
+  --on-accent: var(--c-fg);
+}
+
+@theme inline {
+  --color-bg: var(--c-bg);
+  --color-surface-1: var(--c-surface-1);
+  --color-surface-2: var(--c-surface-2);
+  --color-surface-3: var(--c-surface-3);
+  --color-muted: var(--c-muted);
+  --color-fg: var(--c-fg);
+  --color-pink: var(--c-pink);
+  --color-cyan: var(--c-cyan);
+  --color-purple: var(--c-purple);
+  --color-amber: var(--c-amber);
+  --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
+  --color-on-accent: var(--on-accent);
+
+  --font-pixel: var(--font-display);
+  --font-mono: var(--font-body);
+
+  --radius-*: initial;
+}

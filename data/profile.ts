@@ -38,7 +38,7 @@ export const profile = {
     { key: { en: "Shipping", mn: "Гаргах" }, value: 9 },
     { key: { en: "Debugging", mn: "Debug" }, value: 8 },
     { key: { en: "Teamwork", mn: "Багаар" }, value: 9 },
-    { key: { en: "Aim", mn: "Онох" }, value: 7 }, // TODO: be honest
+    { key: { en: "Aim", mn: "Онох" }, value: 8 },
     { key: { en: "Sleep", mn: "Нойр" }, value: 3 },
   ] satisfies { key: Localized; value: number }[],
 };

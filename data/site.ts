@@ -14,7 +14,7 @@ export const site = {
     mn: "Улаанбаатар, Монгол",
   } as Localized,
   // Production domain (canonical URLs, OG image, sitemap). Update if you add a custom domain.
-  url: "https://portfolio-tau-ten-ok6gg6zc1r.vercel.app",
+  url: "https://turuu-portfolio.vercel.app",
   email: "turuuzbi@gmail.com",
   links: {
     github: "https://github.com/turuuzbi",

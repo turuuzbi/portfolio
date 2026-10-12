@@ -80,6 +80,17 @@ export const games: Game[] = [
       mn: "Утсан дээрх ranked grind.",
     },
     icon: "sword",
+    hours: "300+",
+  },
+  {
+    title: "Left 4 Dead 2",
+    short: "L4D2",
+    tag: {
+      en: "Co-op chaos with the squad.",
+      mn: "Найзуудтайгаа co-op эмх замбараагүй.",
+    },
+    icon: "medkit",
+    hours: "200+",
   },
   {
     title: "Dead by Daylight",
@@ -89,14 +100,6 @@ export const games: Game[] = [
       mn: "Генератор, дэгээ, буруу шийдвэрүүд.",
     },
     icon: "hook",
-  },
-  {
-    title: "Left 4 Dead",
-    short: "L4D",
-    tag: {
-      en: "Co-op chaos with the squad.",
-      mn: "Найзуудтайгаа co-op эмх замбараагүй.",
-    },
-    icon: "medkit",
+    hours: "100+",
   },
 ];

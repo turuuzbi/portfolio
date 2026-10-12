@@ -13,12 +13,12 @@ export const site = {
     en: "Ulaanbaatar, Mongolia",
     mn: "Улаанбаатар, Монгол",
   } as Localized,
-  // TODO: set your production domain once it is live on Vercel
-  url: "https://turuu.vercel.app",
-  email: "you@example.com", // TODO: add the email you want public
+  // Production domain (canonical URLs, OG image, sitemap). Update if you add a custom domain.
+  url: "https://portfolio-tau-ten-ok6gg6zc1r.vercel.app",
+  email: "turuuzbi@gmail.com",
   links: {
     github: "https://github.com/turuuzbi",
-    linkedin: "https://www.linkedin.com/in/TODO", // TODO: add LinkedIn URL
+    instagram: "https://www.instagram.com/turuk_ii",
   },
   openToWork: true,
   copyrightYear: 2026,

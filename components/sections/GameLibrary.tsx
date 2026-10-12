@@ -29,7 +29,7 @@ export function GameLibrary({ lang }: { lang: Lang }) {
         </p>
 
         <Reveal>
-          <ul className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
+          <ul className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-3">
             {games.map((game) => (
               <li key={game.title} className="game-tile group">
                 <article
@@ -60,18 +60,30 @@ export function GameLibrary({ lang }: { lang: Lang }) {
                     <p className="text-xs leading-relaxed text-muted">
                       {tr(game.tag, lang)}
                     </p>
-                    <dl className="mt-auto grid grid-cols-2 gap-2 pt-2 font-pixel text-[0.6rem] uppercase tracking-widest">
-                      <div>
-                        <dt className="text-muted">{tr(t.rank, lang)}</dt>
-                        <dd className="mt-0.5 text-accent-text">{game.rank}</dd>
-                      </div>
-                      <div>
-                        <dt className="text-muted">{tr(t.hours, lang)}</dt>
-                        <dd className="mt-0.5 text-accent-text">
-                          {game.hours}
-                        </dd>
-                      </div>
-                    </dl>
+                    {(game.hours || game.rank) && (
+                      <dl className="mt-auto grid grid-cols-2 gap-2 pt-2 font-pixel uppercase tracking-widest">
+                        {game.hours && (
+                          <div>
+                            <dt className="text-[0.6rem] text-muted">
+                              {tr(t.hours, lang)}
+                            </dt>
+                            <dd className="mt-0.5 text-lg text-accent-text sm:text-xl">
+                              {game.hours}
+                            </dd>
+                          </div>
+                        )}
+                        {game.rank && (
+                          <div>
+                            <dt className="text-[0.6rem] text-muted">
+                              {tr(t.rank, lang)}
+                            </dt>
+                            <dd className="mt-0.5 text-accent-text">
+                              {game.rank}
+                            </dd>
+                          </div>
+                        )}
+                      </dl>
+                    )}
                   </div>
                 </article>
               </li>

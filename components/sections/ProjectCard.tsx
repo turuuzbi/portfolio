@@ -8,6 +8,12 @@ import { GlitchText } from "@/components/ui/GlitchText";
 import { PixelIcon } from "@/components/ui/PixelIcon";
 import { Tag } from "@/components/ui/Tag";
 
+const statusLabel = {
+  live: ui.projects.live,
+  completed: ui.projects.completed,
+  "in-development": ui.projects.inDevelopment,
+} as const;
+
 export function ProjectCard({
   project,
   lang,
@@ -49,10 +55,10 @@ export function ProjectCard({
               aria-hidden
               className={cn(
                 "inline-block size-2",
-                project.status === "live" ? "bg-accent" : "bg-muted",
+                project.status === "in-development" ? "bg-muted" : "bg-accent",
               )}
             />
-            {tr(project.status === "live" ? t.live : t.inDevelopment, lang)}
+            {tr(statusLabel[project.status], lang)}
           </span>
         </div>
 

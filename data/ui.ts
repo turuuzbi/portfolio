@@ -41,6 +41,7 @@ export const ui = {
     featured: { en: "Featured", mn: "Онцлох" },
     live: { en: "Live", mn: "Ажиллаж байна" },
     inDevelopment: { en: "In development", mn: "Хөгжүүлж байна" },
+    completed: { en: "Completed", mn: "Дууссан" },
     visit: { en: "Live site", mn: "Сайт үзэх" },
     code: { en: "Code", mn: "Код" },
     noSignal: { en: "No signal", mn: "Дохио алга" },

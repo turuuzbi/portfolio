@@ -1,6 +1,6 @@
 import type { Localized } from "@/lib/i18n";
 
-export type ProjectStatus = "live" | "in-development";
+export type ProjectStatus = "live" | "completed" | "in-development";
 
 export type Project = {
   slug: string;
@@ -26,56 +26,78 @@ export const projects: Project[] = [
     featured: true,
     status: "live",
     tagline: {
-      en: "A manga reading site with real readers.",
-      mn: "Бодит уншигчидтай манга унших сайт.",
+      en: "A manga reading platform with real readers.",
+      mn: "Бодит уншигчидтай манга унших платформ.",
     },
     description: {
-      // TODO: name 1–2 features you're proud of (reader, search, library…)
-      en: "Find a title, open a chapter, read. A fast, no-clutter reader built with React and TypeScript, shipped on Vercel and used by about 1,000 real readers.",
-      mn: "Гарчгаа олоод, бүлгээ нээгээд уншина. React, TypeScript дээр бүтээж Vercel дээр гаргасан, 1,000 орчим бодит уншигчтай хурдан, цэвэрхэн манга уншигч.",
+      en: "Translated manga with a chapter reader, saved reading progress, bookmarks, ratings and chapter comments, plus a release schedule and news feed. Premium plans are paid through QPay. My relative translates; I build, deploy and run everything else.",
+      mn: "Орчуулсан манга: бүлэг уншигч, уншсан явцаа хадгалах, bookmark, үнэлгээ, бүлгийн сэтгэгдэл, гаралтын хуваарь, мэдээ. Premium эрхийг QPay-ээр төлдөг. Орчуулгыг хамаатан маань, бусад бүх зүйлийг буюу код, deploy, удирдлагыг би хийдэг.",
     },
-    stack: ["React", "TypeScript", "Vercel"], // TODO: add the rest of the stack (styling, data source, …)
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "Prisma",
+      "PostgreSQL",
+      "Clerk",
+      "Cloudflare R2",
+    ],
     stat: {
       value: "~1,000",
       label: { en: "real users", mn: "бодит хэрэглэгч" },
     },
-    role: undefined, // TODO: e.g. { en: "Solo: design, build, deploy", mn: "Ганцаараа: дизайн, код, deploy" }
-    links: {
-      live: "https://manga-yume.vercel.app",
-      github: undefined, // TODO: add repo URL (or leave undefined if private)
+    role: {
+      en: "Code, deploy and site management",
+      mn: "Код, deploy, сайтын удирдлага",
     },
-    image: undefined, // TODO: { src: "/projects/manga-yume.png", alt: { en: "Manga Yume reader view" } }
+    links: {
+      live: "https://yumemanga.mn",
+      github: "https://github.com/turuuzbi/manga",
+    },
+    image: undefined, // TODO: { src: "/projects/manga-yume.png", alt: { en: "Manga Yume reader view", mn: "Manga Yume уншигч" } }
   },
   {
     slug: "chronos",
     title: "Chronos",
-    status: "live", // TODO: confirm status
+    status: "completed",
     tagline: {
-      en: "Scheduling and workforce management.",
-      mn: "Ажлын хуваарь, ажилтны менежмент.",
+      en: "Appointment booking and staff scheduling.",
+      mn: "Цаг захиалга, ажилтны хуваарь.",
     },
     description: {
-      // TODO: confirm features
-      en: "Shifts, availability and team schedules in one dashboard, so managers stop juggling spreadsheets and group chats.",
-      mn: "Ээлж, ажилтнуудын сул цаг, багийн хуваарийг нэг самбарт. Менежерүүд Excel, группийн чатны дунд төөрөхөө болино.",
+      en: "Businesses set opening hours and weekly shifts, customers book a time slot with a specific worker, and workers apply to join a company for admins to approve. Separate dashboards for customers, workers, company admins and a super admin.",
+      mn: "Байгууллага ажлын цаг, долоо хоногийн ээлжээ тохируулж, үйлчлүүлэгч тодорхой ажилтантай цаг захиална. Ажилтан байгууллагад элсэх хүсэлт илгээж, админ батална. Үйлчлүүлэгч, ажилтан, байгууллагын админ, супер админд тус тусын самбартай.",
     },
-    stack: ["Next.js", "TypeScript", "Prisma", "PostgreSQL"], // TODO: confirm
-    role: { en: "Team lead, team of 3", mn: "Багийн ахлагч, 3 хүнтэй баг" }, // TODO: confirm which projects you led
-    links: { live: undefined, github: undefined }, // TODO
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "Prisma",
+      "PostgreSQL",
+      "Clerk",
+      "Tailwind CSS",
+    ],
+    role: { en: "Team lead, team of 3", mn: "Багийн ахлагч, 3 хүнтэй баг" },
+    links: { github: "https://github.com/HOP-2A/chronos" },
   },
   {
     slug: "trip",
     title: "Trip",
-    status: "live", // TODO: confirm status
-    tagline: { en: "Itinerary builder.", mn: "Аяллын маршрут төлөвлөгч." },
+    status: "completed",
+    tagline: { en: "Group trip planner.", mn: "Багаар аялал төлөвлөгч." },
     description: {
-      // TODO: confirm features
-      en: "Plan a trip day by day: drop in places, set times and keep the whole itinerary in one shareable view.",
-      mn: "Аяллаа өдөр өдрөөр нь төлөвлө: газруудаа нэмж, цагаа тохируулаад бүх маршрутаа нэг дор хуваалц.",
+      en: "Browse ready-made trips with day-by-day plans and destination facts (currency, visa, language, must-eat food, must-see places), or build your own itinerary, invite friends and plan it together in the comments. Cover images can be AI-generated.",
+      mn: "Өдөр бүрийн төлөвлөгөө, газрын мэдээлэл (валют, виз, хэл, заавал идэх хоол, үзэх газар) бүхий бэлэн аяллуудыг үз, эсвэл өөрийн маршрутаа гаргаж, найзуудаа урьж, сэтгэгдлээр хамтдаа төлөвлө. Нүүр зургийг AI-аар үүсгэж болно.",
     },
-    stack: ["Next.js", "TypeScript", "Prisma", "PostgreSQL"], // TODO: confirm
-    role: { en: "Team lead, team of 3", mn: "Багийн ахлагч, 3 хүнтэй баг" }, // TODO: confirm
-    links: { live: undefined, github: undefined }, // TODO
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "Prisma",
+      "PostgreSQL",
+      "Clerk",
+      "Tailwind CSS",
+    ],
+    role: { en: "Team lead, team of 3", mn: "Багийн ахлагч, 3 хүнтэй баг" },
+    // TODO: add live: "https://trip-murex-seven.vercel.app" once Vercel deployment protection is off for that project
+    links: { github: "https://github.com/HOP-2A/trip" },
   },
   {
     slug: "bizon",
@@ -91,6 +113,6 @@ export const projects: Project[] = [
       mn: "Бүтээгдэхүүний каталог, сагс, төлбөр тооцоотой онлайн дэлгүүр. Next.js + Prisma дээр бүтээж байна.",
     },
     stack: ["Next.js", "TypeScript", "Prisma", "PostgreSQL"], // TODO: confirm
-    links: { live: undefined, github: undefined }, // TODO
+    links: {}, // TODO: add github: "https://github.com/turuuzbi/bizon" if you want it public
   },
 ];

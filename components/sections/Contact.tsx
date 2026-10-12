@@ -14,7 +14,7 @@ export function Contact({ lang }: { lang: Lang }) {
   const newTab = tr(ui.projects.opensInNewTab, lang);
   const rows = [
     { key: "github", href: site.links.github },
-    { key: "linkedin", href: site.links.linkedin },
+    { key: "instagram", href: site.links.instagram },
   ];
 
   return (

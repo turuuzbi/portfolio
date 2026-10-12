@@ -24,10 +24,9 @@ export const offscreen: {
   },
   {
     title: { en: "Anime & manga", mn: "Аниме ба манга" },
-    // TODO: confirm this is where Manga Yume came from
     text: {
-      en: "Which is how Manga Yume happened.",
-      mn: "Manga Yume ч эндээс гарсан.",
+      en: "Reading it, and now publishing it with Manga Yume.",
+      mn: "Уншдаг, одоо Manga Yume-ээр нийтэлдэг.",
     },
     icon: "bubble",
   },

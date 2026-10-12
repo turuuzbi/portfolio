@@ -7,23 +7,30 @@ export type Game = {
   short: string;
   tag: Localized;
   icon: PixelIconName;
-  /** e.g. "Global Elite", "Mythic". */
-  rank: string;
-  /** e.g. "2,400". */
-  hours: string;
+  /** Optional, e.g. "Global Elite". Hidden when missing. */
+  rank?: string;
+  /** Optional, e.g. "2,200+". Hidden when missing. */
+  hours?: string;
 };
 
+// Sorted by hours played.
 export const games: Game[] = [
   {
-    title: "Counter-Strike 2",
-    short: "CS2",
+    title: "Roblox",
+    short: "Roblox",
     tag: {
-      en: "Where the aim training goes now.",
-      mn: "Онолтын дасгал одоо энд.",
+      en: "Where most of the hours went.",
+      mn: "Хамгийн их цаг зарцуулсан газар.",
     },
-    icon: "crosshair",
-    rank: "TODO",
-    hours: "TODO",
+    icon: "brick",
+    hours: "3,100+",
+  },
+  {
+    title: "Counter-Strike 1.6",
+    short: "CS 1.6",
+    tag: { en: "The internet-café classic.", mn: "Интернет кафены сонгодог." },
+    icon: "crt",
+    hours: "2,200+",
   },
   {
     title: "Counter-Strike: Global Offensive",
@@ -33,16 +40,17 @@ export const games: Game[] = [
       mn: "Булчингийн ой санамж эндээс.",
     },
     icon: "timer",
-    rank: "TODO",
-    hours: "TODO",
+    hours: "700+",
   },
   {
-    title: "Counter-Strike 1.6",
-    short: "CS 1.6",
-    tag: { en: "The internet-café classic.", mn: "Интернет кафены сонгодог." },
-    icon: "crt",
-    rank: "TODO",
-    hours: "TODO",
+    title: "Counter-Strike 2",
+    short: "CS2",
+    tag: {
+      en: "Where the aim training goes now.",
+      mn: "Онолтын дасгал одоо энд.",
+    },
+    icon: "crosshair",
+    hours: "600+",
   },
   {
     title: "Valorant",
@@ -52,19 +60,7 @@ export const games: Game[] = [
       mn: "Ур чадвартай тактикийн буудлага.",
     },
     icon: "diamond",
-    rank: "TODO",
-    hours: "TODO",
-  },
-  {
-    title: "Mobile Legends: Bang Bang",
-    short: "MLBB",
-    tag: {
-      en: "The ranked grind, on mobile.",
-      mn: "Утсан дээрх ranked grind.",
-    },
-    icon: "sword",
-    rank: "TODO",
-    hours: "TODO",
+    hours: "500+",
   },
   {
     title: "Minecraft",
@@ -74,8 +70,16 @@ export const games: Game[] = [
       mn: "Хязгааргүй sandbox, deadline алга.",
     },
     icon: "block",
-    rank: "TODO",
-    hours: "TODO",
+    hours: "300+",
+  },
+  {
+    title: "Mobile Legends: Bang Bang",
+    short: "MLBB",
+    tag: {
+      en: "The ranked grind, on mobile.",
+      mn: "Утсан дээрх ranked grind.",
+    },
+    icon: "sword",
   },
   {
     title: "Dead by Daylight",
@@ -85,8 +89,6 @@ export const games: Game[] = [
       mn: "Генератор, дэгээ, буруу шийдвэрүүд.",
     },
     icon: "hook",
-    rank: "TODO",
-    hours: "TODO",
   },
   {
     title: "Left 4 Dead",
@@ -96,7 +98,5 @@ export const games: Game[] = [
       mn: "Найзуудтайгаа co-op эмх замбараагүй.",
     },
     icon: "medkit",
-    rank: "TODO",
-    hours: "TODO",
   },
 ];

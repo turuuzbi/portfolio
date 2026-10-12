@@ -28,7 +28,14 @@ const sizes = {
   sm: "px-3 py-2 text-xs",
 };
 
-export function Button({ href, children, variant = "solid", size = "md", external, className }: Props) {
+export function Button({
+  href,
+  children,
+  variant = "solid",
+  size = "md",
+  external,
+  className,
+}: Props) {
   return (
     <a
       href={href}

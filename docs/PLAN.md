@@ -1,6 +1,6 @@
 # Portfolio build plan
 
-Single-page, fully static site. Next.js 16 (App Router) + TypeScript + Tailwind v4 + Framer Motion (only for scroll reveals).
+Single-page, fully static site. Next.js 16 (App Router) + TypeScript + Tailwind v4 + Framer Motion (`inView` helper for scroll reveals).
 
 ## File structure
 
@@ -55,7 +55,8 @@ The Konami code sets `data-palette="alt"` on `<html>`, which swaps pink↔cyan a
 
 ## Accent per section (one dominant each)
 
-Hero: pink · Projects: cyan · Loadout: amber · Player Profile: purple · Games: pink · Off-screen: cyan · Contact: pink · Footer: amber.
+Hero: pink · Projects: cyan · Loadout: purple · Player Profile: pink · Games: cyan · Off-screen: purple · Contact: pink · Footer: amber.
+Amber stays a sparing hit (Featured badge, footer coin).
 
 ## Effects (all off under `prefers-reduced-motion`)
 
@@ -74,6 +75,7 @@ a plain string, or `{ en, mn? }`. Missing `mn` falls back to `en`, so Mongolian 
 
 ## Build order
 
-1. Tokens, fonts, effects, hero, one project card → **review vibe**
-2. Remaining sections
-3. SEO (metadata, OG, sitemap, favicon), README, Lighthouse pass
+1. ✅ Tokens, fonts, effects, hero, one project card → reviewed
+2. ✅ Remaining sections + Mongolian copy (draft)
+3. ✅ SEO (metadata, hreflang, OG, sitemap, favicon), README, Lighthouse pass
+4. Deploy to Vercel

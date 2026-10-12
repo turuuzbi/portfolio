@@ -5,7 +5,7 @@ import { tr, type Lang } from "@/lib/i18n";
 import { Terminal } from "@/components/effects/Terminal";
 import { Button } from "@/components/ui/Button";
 import { GlitchText } from "@/components/ui/GlitchText";
-import { PixelIcon, icons } from "@/components/ui/PixelIcon";
+import { PixelIcon } from "@/components/ui/PixelIcon";
 
 const delay = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
 
@@ -52,7 +52,10 @@ export function Hero({ lang }: { lang: Lang }) {
           </h1>
 
           <p className="mt-5 font-pixel text-xs uppercase tracking-[0.25em] text-muted sm:text-sm">
-            <span lang="mn" className="font-mono text-sm tracking-normal text-fg normal-case sm:text-base">
+            <span
+              lang="mn"
+              className="font-mono text-sm tracking-normal text-fg normal-case sm:text-base"
+            >
               {site.nameNative}
             </span>
             <span aria-hidden className="mx-3 text-accent-text">
@@ -84,7 +87,7 @@ export function Hero({ lang }: { lang: Lang }) {
             style={delay(550)}
           >
             <Button href="#work">
-              <PixelIcon grid={icons.play} className="h-3 w-auto" />
+              <PixelIcon name="play" className="h-3 w-auto" />
               {tr(t.ctaWork, lang)}
             </Button>
             <Button href="#contact" variant="outline">

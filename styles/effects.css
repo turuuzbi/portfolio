@@ -18,7 +18,7 @@
       transparent 0 2px,
       rgb(0 0 0 / var(--scanline-opacity)) 2px 3px
     ),
-    radial-gradient(ellipse at center, transparent 55%, rgb(0 0 0 / 0.45) 100%);
+    radial-gradient(ellipse at center, transparent 60%, rgb(0 0 0 / var(--vignette-opacity)) 100%);
 }
 
 .crt::after {
@@ -27,8 +27,13 @@
   inset: -50%;
   opacity: var(--grain-opacity);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation: grain 0.8s steps(4) infinite;
-  will-change: transform;
+}
+
+@media (hover: hover) and (min-width: 1024px) {
+  .crt::after {
+    animation: grain 0.8s steps(4) infinite;
+    will-change: transform;
+  }
 }
 
 @keyframes grain {
@@ -100,11 +105,22 @@
 .neon-hover:hover,
 .neon-hover:focus-within {
   border-color: var(--accent);
-  box-shadow: 0 0 22px -4px color-mix(in srgb, var(--accent) 60%, transparent);
+  box-shadow:
+    0 0 0 1px var(--accent),
+    0 0 28px -2px color-mix(in srgb, var(--accent) var(--glow-mix), transparent);
+}
+
+/* Hard Hotline-Miami offset in the section accent */
+.heading-shadow {
+  text-shadow:
+    0.06em 0.06em 0 color-mix(in srgb, var(--accent) 70%, transparent),
+    0 0 26px color-mix(in srgb, var(--accent) 30%, transparent);
 }
 
 .text-glow {
-  text-shadow: 0 0 12px color-mix(in srgb, var(--accent) 70%, transparent);
+  text-shadow:
+    0 0 10px color-mix(in srgb, var(--accent) var(--glow-mix), transparent),
+    0 0 32px color-mix(in srgb, var(--accent) 45%, transparent);
 }
 
 /* ---------- Neon title: ignition flicker, then steady ---------- */
@@ -115,7 +131,8 @@
   text-shadow:
     -0.03em 0 0 color-mix(in srgb, var(--c-cyan) 75%, transparent),
     0.03em 0 0 color-mix(in srgb, var(--c-purple) 65%, transparent),
-    0 0 28px color-mix(in srgb, var(--accent) 55%, transparent);
+    0 0 18px color-mix(in srgb, var(--accent) var(--glow-mix), transparent),
+    0 0 64px color-mix(in srgb, var(--accent) 50%, transparent);
   animation: neon-on 1.4s steps(1) 0.15s both;
 }
 
@@ -172,6 +189,20 @@
   to { clip-path: inset(0 0 0 0); }
 }
 
+/* ---------- Game tile icon jitter ---------- */
+
+.game-tile:hover .game-tile__icon {
+  animation: jitter 0.45s steps(1) infinite;
+  filter: drop-shadow(-2px 0 0 var(--c-pink)) drop-shadow(2px 0 0 var(--c-cyan));
+}
+
+@keyframes jitter {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-2px, 1px); }
+  50% { transform: translate(2px, -1px); }
+  75% { transform: translate(-1px, -2px); }
+}
+
 /* ---------- Skewed divider band ---------- */
 
 .divider {
@@ -189,7 +220,7 @@
     var(--accent) 0 28px,
     transparent 28px 40px
   );
-  opacity: 0.9;
+  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--accent) var(--glow-mix), transparent));
 }
 .divider::after {
   content: "";
@@ -224,14 +255,21 @@
   transform: rotateX(62deg) translateY(0);
   will-change: transform;
   background-image:
-    linear-gradient(to right, color-mix(in srgb, var(--accent) 35%, transparent) 2px, transparent 2px),
-    linear-gradient(to bottom, color-mix(in srgb, var(--accent) 35%, transparent) 2px, transparent 2px);
+    linear-gradient(to right, color-mix(in srgb, var(--accent) var(--grid-mix), transparent) 2px, transparent 2px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--accent) var(--grid-mix), transparent) 2px, transparent 2px);
   background-size: 56px 56px;
   animation: floor 3s linear infinite;
 }
 
 @keyframes floor {
   to { transform: rotateX(62deg) translateY(56px); }
+}
+
+.floor::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 100%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%);
 }
 
 @media (min-width: 640px) {
@@ -249,11 +287,28 @@
   .caret,
   .blink,
   .cut-in,
-  .glitch__layer {
+  .glitch__layer,
+  .game-tile__icon {
     animation: none !important;
   }
   .type-line {
     animation: none;
     width: auto;
   }
+  .reveal,
+  .js .reveal:not(.is-in) {
+    clip-path: none !important;
+    animation: none !important;
+  }
+}
+
+/* No JS: never leave content clipped */
+/* ---------- Scroll reveal (components/effects/Reveal.tsx) ---------- */
+/* Only clipped when JS is on (layout.tsx adds .js), so content never stays hidden. */
+
+.js .reveal:not(.is-in) {
+  clip-path: inset(0 100% 0 0);
+}
+.reveal.is-in {
+  animation: cut-in 0.32s steps(4, end) var(--d, 0ms) both;
 }

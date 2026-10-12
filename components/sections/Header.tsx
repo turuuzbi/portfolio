@@ -10,7 +10,10 @@ export function Header({ lang }: { lang: Lang }) {
       className="sticky top-0 z-50 border-b-(length:--bw) border-surface-2 bg-bg/90 backdrop-blur-sm"
     >
       <div className="container-page flex h-14 items-center justify-between gap-4">
-        <a href="#top" className="font-pixel text-sm uppercase tracking-widest text-fg hover:text-accent-text">
+        <a
+          href="#top"
+          className="font-pixel text-sm uppercase tracking-widest text-fg hover:text-accent-text"
+        >
           {site.name}
           <span className="text-accent-text">.exe</span>
         </a>
@@ -19,7 +22,10 @@ export function Header({ lang }: { lang: Lang }) {
           <ul className="flex gap-6 font-pixel text-xs uppercase tracking-widest">
             {ui.nav.map((item) => (
               <li key={item.href}>
-                <a href={item.href} className="text-muted transition-colors hover:text-accent-text">
+                <a
+                  href={item.href}
+                  className="text-muted transition-colors hover:text-accent-text"
+                >
                   {tr(item.label, lang)}
                 </a>
               </li>
@@ -52,12 +58,16 @@ function LangToggle({ lang }: { lang: Lang }) {
               hrefLang={l}
               lang={l}
               aria-current={l === lang ? "page" : undefined}
+              title={tr(ui.langNames, l)}
               className={cn(
                 "block px-2 py-1",
-                l === lang ? "bg-accent text-on-accent" : "text-muted hover:text-accent-text",
+                l === lang
+                  ? "bg-accent text-on-accent"
+                  : "text-muted hover:text-accent-text",
               )}
             >
               {l}
+              <span className="sr-only"> {tr(ui.langNames, l)}</span>
             </a>
           </li>
         ))}

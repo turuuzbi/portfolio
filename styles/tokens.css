@@ -48,8 +48,12 @@
   --ease-hard: cubic-bezier(0.7, 0, 0.3, 1);
 
   /* Effects strength */
-  --scanline-opacity: 0.14;
+  --scanline-opacity: 0.1;
+  --vignette-opacity: 0.3;
   --grain-opacity: 0.05;
+  /* How strongly neon glows mix the accent in (0–100%) */
+  --glow-mix: 75%;
+  --grid-mix: 55%;
 }
 
 @media (min-width: 640px) {

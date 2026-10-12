@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# turuu.exe
 
-## Getting Started
+Personal portfolio of Төрөө (Turuu), full-stack developer in Ulaanbaatar.
+Hotline Miami menu screen meets minimalist dev portfolio.
 
-First, run the development server:
+Next.js 16 (App Router) · TypeScript · Tailwind CSS v4 · Framer Motion (`inView` only) · static, no database.
+
+## Run it
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000  (Mongolian: /mn)
+npm run lint
+npm run build && npm start   # production build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Node 20+ (22 recommended).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploy (Vercel)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Push this repo to GitHub.
+2. In Vercel: **Add New → Project → Import** the repo. Framework preset: Next.js. No env vars needed.
+3. Set your production domain, then update `site.url` in `data/site.ts` (used for canonical URLs, OG image, sitemap).
 
-## Learn More
+Every push to the production branch deploys; other branches get preview URLs.
 
-To learn more about Next.js, take a look at the following resources:
+## Edit content
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Everything you'll want to change lives in `/data`:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| File | What |
+|---|---|
+| `data/site.ts` | name, email, GitHub/LinkedIn, domain, "open to work" flag |
+| `data/projects.ts` | project cards (add screenshots to `/public/projects/` and set `image`) |
+| `data/skills.ts` | loadout slots + "backpack" tags |
+| `data/profile.ts` | bio, character-sheet stats, attribute bars |
+| `data/games.ts` | game library, rank + hours per game |
+| `data/offscreen.ts` | off-screen hobbies |
+| `data/ui.ts` | all UI labels and section copy |
+| `data/icons.ts` | original pixel-art icons (string grids) |
 
-## Deploy on Vercel
+Search the repo for `TODO:` to find every placeholder.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Languages (EN / MN)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`/` is English, `/mn` is Mongolian. Every string is either a plain string (same in both)
+or `{ en: "...", mn: "..." }`. If `mn` is missing, English is shown.
+
+## Retheme
+
+All design tokens are in **`styles/tokens.css`**: colors, accent per section, borders, spacing,
+and effect strength (`--glow-mix`, `--grid-mix`, `--scanline-opacity`, `--grain-opacity`).
+Tailwind v4 reads them through the `@theme` block at the bottom of that file (v4 has no `tailwind.config`).
+
+Each section picks one accent with `data-accent="pink | cyan | purple | amber"`.
+The Konami code (↑↑↓↓←→←→ B A) or the footer's INSERT COIN button flips the palette.
+
+## Project structure
+
+```
+app/[lang]/        layout (fonts, metadata), page, per-language OG image
+app/               favicon, icons, sitemap, robots, global 404
+components/ui/     Button, Tag, GlitchText, SectionHeading, Divider, PixelIcon
+components/sections/  Header, Hero, Projects, Loadout, PlayerProfile, GameLibrary, OffScreen, Contact, Footer
+components/effects/   CrtOverlay, Terminal, Reveal, CopyButton, PaletteSwitch
+styles/            tokens.css (theme), effects.css (CRT, glitch, glow, dividers)
+data/              all content
+```
+
+## Notes
+
+- Fonts are self-hosted and subset (Latin + Cyrillic) woff2: [Monocraft](https://github.com/IdreesInc/Monocraft)
+  for headings, [JetBrains Mono](https://github.com/JetBrains/JetBrainsMono) for body. Both SIL OFL 1.1,
+  licenses in `app/fonts/`. `assets/og/Monocraft.ttf` is a TTF subset for the OG image renderer.
+- All effects are CSS (scanlines, grain, glitch, typing, flicker) and switch off under `prefers-reduced-motion`.
+  The hero flicker stays under the WCAG three-flashes limit.
+- Game icons are original geometric pixel art: no official logos or game assets.

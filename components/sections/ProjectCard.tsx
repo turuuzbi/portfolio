@@ -139,8 +139,17 @@ function Screenshot({ project, lang }: { project: Project; lang: Lang }) {
           src={project.image.src}
           alt={tr(project.image.alt, lang)}
           fill
-          sizes="(min-width: 768px) 60vw, 100vw"
-          className="object-cover object-top transition-[filter] duration-(--dur) group-hover:[filter:drop-shadow(-3px_0_0_var(--c-pink))_drop-shadow(3px_0_0_var(--c-cyan))]"
+          sizes={
+            project.featured
+              ? "(min-width: 768px) 60vw, 100vw"
+              : "(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+          }
+          className={cn(
+            "object-cover transition-[filter] duration-(--dur) group-hover:[filter:drop-shadow(-3px_0_0_var(--c-pink))_drop-shadow(3px_0_0_var(--c-cyan))]",
+            project.image.position === "center"
+              ? "object-center"
+              : "object-top",
+          )}
         />
       </div>
     );

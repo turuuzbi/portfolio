@@ -16,7 +16,12 @@ export type Project = {
   role?: Localized;
   links: { live?: string; github?: string };
   /** Put screenshots in /public/projects. Without one, the card shows a "NO SIGNAL" placeholder. */
-  image?: { src: string; alt: Localized };
+  image?: {
+    src: string;
+    alt: Localized;
+    /** Which part of the image stays in frame when cropped. Default "top". */
+    position?: "top" | "center";
+  };
 };
 
 export const projects: Project[] = [
@@ -53,7 +58,14 @@ export const projects: Project[] = [
       live: "https://yumemanga.mn",
       github: "https://github.com/turuuzbi/manga",
     },
-    image: undefined, // TODO: { src: "/projects/manga-yume.png", alt: { en: "Manga Yume reader view", mn: "Manga Yume уншигч" } }
+    image: {
+      src: "/projects/manga-yume.jpg",
+      alt: {
+        en: "Manga Yume homepage with recent reader comments and a featured series banner",
+        mn: "Manga Yume нүүр хуудас: уншигчдын сүүлийн сэтгэгдэл, онцлох цувралын баннер",
+      },
+      position: "center",
+    },
   },
   {
     slug: "chronos",
@@ -99,6 +111,13 @@ export const projects: Project[] = [
     links: {
       live: "https://trip-murex-seven.vercel.app",
       github: "https://github.com/HOP-2A/trip",
+    },
+    image: {
+      src: "/projects/trip.jpg",
+      alt: {
+        en: "Trip homepage with destination search and featured trips",
+        mn: "Trip нүүр хуудас: аяллын хайлт, онцлох аяллууд",
+      },
     },
   },
   {

@@ -81,7 +81,7 @@ export const projects: Project[] = [
   {
     slug: "trip",
     title: "Trip",
-    status: "completed",
+    status: "live",
     tagline: { en: "Group trip planner.", mn: "Багаар аялал төлөвлөгч." },
     description: {
       en: "Browse ready-made trips with day-by-day plans and destination facts (currency, visa, language, must-eat food, must-see places), or build your own itinerary, invite friends and plan it together in the comments. Cover images can be AI-generated.",
@@ -96,8 +96,10 @@ export const projects: Project[] = [
       "Tailwind CSS",
     ],
     role: { en: "Team lead, team of 3", mn: "Багийн ахлагч, 3 хүнтэй баг" },
-    // TODO: add live: "https://trip-murex-seven.vercel.app" once Vercel deployment protection is off for that project
-    links: { github: "https://github.com/HOP-2A/trip" },
+    links: {
+      live: "https://trip-murex-seven.vercel.app",
+      github: "https://github.com/HOP-2A/trip",
+    },
   },
   {
     slug: "bizon",
